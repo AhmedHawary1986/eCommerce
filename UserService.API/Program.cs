@@ -15,6 +15,19 @@ builder.Services.AddInfrastructure();
 builder.Services.AddCore();
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options=> {
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 /*builder.Services.AddControllers()
     .AddJsonOptions(o =>
     {
@@ -44,6 +57,10 @@ var app = builder.Build();
 app.UseExceptionHandlingMiddleware();
 
 app.UseRouting();
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
 
 app.UseAuthentication();
 
